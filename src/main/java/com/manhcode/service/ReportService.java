@@ -30,7 +30,7 @@ public class ReportService {
         Page<Order> orders = iOrderRepository.findAll(pageable);
         return orders.map(order -> {
 //            Product product = iProductrepository.findById(order.getId()).orElse(null);
-            Product product = iProductrepository.findById(order.getId()).orElse(null);
+            Product product = order.getProduct();
             Type type = product != null ? iTypeRepository.findById(product.getType().getId()).orElse(null) : null;
 
             if (product != null && type != null) {

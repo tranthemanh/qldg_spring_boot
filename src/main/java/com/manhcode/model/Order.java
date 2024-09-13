@@ -14,7 +14,7 @@ public class Order {
     private Date date;
     private int quantity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 

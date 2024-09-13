@@ -43,7 +43,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order, iterStat : ${orders}">
+        <tr th:each="order, iterStat : ${orders}"
+        th:if="${order != null}"
+        >
             <td th:text="${iterStat.index + 1}">1</td>
             <td th:text="${order.id}"></td>
             <td th:text="${order.productName}"></td>

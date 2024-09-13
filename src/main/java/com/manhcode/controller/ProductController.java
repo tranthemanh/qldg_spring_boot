@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/report")
     public ModelAndView listTypes( @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "10") int size) {
+                                   @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<OrderDTO> orders = reportService.getReport(pageable);
 
@@ -44,17 +44,4 @@ public class ProductController {
         return modelAndView;
     }
 
-    @PostMapping("/create")
-    public ModelAndView create(@ModelAttribute("product") Product product,
-                               @ModelAttribute("type") Type type,
-                               @ModelAttribute("order") Order order) {
-        ModelAndView modelAndView = new ModelAndView("/create");
-        typeService.save(type);
-        productService.save(product);
-        orderService.save(order);
-        modelAndView.addObject("type", new Type());
-        modelAndView.addObject("product", new Product());
-        modelAndView.addObject("order", new Order());
-        return modelAndView;
-    }
 }
