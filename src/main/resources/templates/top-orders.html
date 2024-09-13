@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 5 Đơn Hàng</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h3 class="my-4">Top 5 Đơn Hàng Có Tổng Số Tiền Cao Nhất</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Mã Đơn Hàng</th>
+            <th>Sản Phẩm</th>
+            <th>Số Lượng</th>
+            <th>Giá Sản Phẩm</th>
+            <th>Tổng Số Tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${topOrders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.product.name}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.product.price}"></td>
+            <td th:text="${order.product.price * order.quantity}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h4><a th:href="@{/report}" class="btn btn-warning">Quay Lại</a></h4>
+
+</div>
+
+<!-- Bootstrap JS và các phụ thuộc -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

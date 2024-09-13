@@ -29,6 +29,7 @@
 <body>
 <div class="container">
     <h3 class="my-4">Thống Kê Đơn Hàng</h3>
+    <h4><a href="/top-orders" class="btn btn-primary">Xem Top 5 Đơn Hàng</a></h4>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -40,6 +41,7 @@
             <th>Ngày Mua</th>
             <th>Số lượng</th>
             <th>Tổng tiền (USD)</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -54,6 +56,9 @@
             <td th:text="${order.purchaseDate}"></td>
             <td th:text="${order.quantity}"></td>
             <td th:text="${order.totalPrice}"></td>
+            <td>
+                <a th:href="@{/updateOrder/{id}(id=${order.id})}" class="btn btn-warning">Sửa</a>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -2,7 +2,6 @@ package com.manhcode.controller;
 
 import com.manhcode.model.Order;
 import com.manhcode.model.Product;
-import com.manhcode.model.Type;
 import com.manhcode.model.dto.OrderDTO;
 import com.manhcode.service.ReportService;
 import com.manhcode.service.order.OrderService;
@@ -12,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -41,6 +44,33 @@ public class ProductController {
 
         ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("orders", orders);
+        return modelAndView;
+    }
+
+    @GetMapping("/updateOrder/{id}")
+    public ModelAndView showUpdateForm(@PathVariable("id") Long orderId) {
+        Order order = orderService.getOrderById(orderId);
+        List<Product> products = productService.getAllProducts();
+        ModelAndView modelAndView = new ModelAndView("update");
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("products", products);
+        return modelAndView;
+    }
+
+    @PostMapping("/updateOrder")
+    public String updateOrder(@RequestParam("id") Long orderId,
+                              @RequestParam("productId") Long productId,
+                              @RequestParam("purchaseDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date purchaseDate,
+                              @RequestParam("quantity") int quantity) {
+        orderService.updateOrder(orderId, productId, purchaseDate, quantity);
+        return "redirect:/report";
+    }
+
+    @GetMapping("/top-orders")
+    public ModelAndView showTopOrders() {
+        List<Order> topOrders = orderService.getTop5HighestTotalOrders();
+        ModelAndView modelAndView = new ModelAndView("top-orders");
+        modelAndView.addObject("topOrders", topOrders);
         return modelAndView;
     }
 

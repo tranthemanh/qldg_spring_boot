@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,6 @@ public class ReportService {
     public Page<OrderDTO> getReport(Pageable pageable) {
         Page<Order> orders = iOrderRepository.findAll(pageable);
         return orders.map(order -> {
-//            Product product = iProductrepository.findById(order.getId()).orElse(null);
             Product product = order.getProduct();
             Type type = product != null ? iTypeRepository.findById(product.getType().getId()).orElse(null) : null;
 
@@ -47,4 +48,6 @@ public class ReportService {
             return null;
         });
     }
+
+
 }

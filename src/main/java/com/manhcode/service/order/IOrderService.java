@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface IOrderService extends IGenerateService<Order> {
     Page<Order> findAll(Pageable pageable);
+
 }
